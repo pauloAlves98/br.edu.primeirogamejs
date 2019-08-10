@@ -1,0 +1,33 @@
+body{
+    overflow-x: hidden; /*Nao mostrar a barra de rolagem!*/
+    overflow-y: hidden;
+    background-color: white;
+    /* background-image: url("fundo1.gif"); */
+}
+.jog{/* div Personagem */
+    width: 104px;
+    height: 120px;
+    overflow: hidden;
+    border-color: black;
+    border: 2px solid #000;
+    /* background-color: black; */
+    /* background-image: url("nave1.gif"); */
+    /* background-size: 50px; */
+    position: absolute; /*Para conseguir flutuar na tela!*/
+}
+.jogador{/* Personagem*/
+    width: 348px;
+    height: 61px;
+    /* background-color: black; */
+    /* background-image: url("nave1.gif"); */
+    /* background-size: 50px; */
+    position: absolute; /*Para conseguir flutuar na tela!*/
+}
+.dragao{
+    width: 204.2px;/*metade*/
+    height: 75.6px;
+    /* background-color: black; */
+    /* background-image: url("nave1.gif"); */
+    /* background-size: 50px; */
+    position: absolute; /*Para conseguir flutuar na tela!*/
+}
