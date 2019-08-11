@@ -2,73 +2,151 @@ var personagem = new Personagem();
 var emJogo = true;
 var tamTelaW;
 var tamTelaH;
-
-function init(){
+var inimigosAtivos;
+var timeCriacao;
+function init() {
     //Tela
     tamTelaW = window.innerWidth;
     tamTelaH = window.innerHeight;
-    console.log(tamTelaH+" Monitor");
+    console.log(tamTelaH + " Monitor");
     //Jogador
     personagem.jogador = document.getElementById("jog");//Pega a div
     personagem.spriteImgPs = document.getElementById("jogador");//Pega a img
     personagem.spriteImgDg = document.getElementById("dragao");//Pega aimg
     //console.log(personagem.spriteImgDg.offsetWidth+" K");
-    personagem.posX = tamTelaW/2;
-    personagem.posY = tamTelaH/2;
-    personagem.jogador.style.top = personagem.posY+"px";
-    personagem.jogador.style.left = personagem.posX+"px";
-    personagem.spriteImgDg.style.top = 45+"px";
-    personagem.spriteImgPs.style.top = -4+"px";
-    personagem.spriteImgPs.style.left = 12+"px";
+    personagem.posX = tamTelaW / 2;
+    personagem.posY = tamTelaH / 2;
+    personagem.jogador.style.top = personagem.posY + "px";
+    personagem.jogador.style.left = personagem.posX + "px";
+    personagem.spriteImgDg.style.top = 45 + "px";
+    personagem.spriteImgPs.style.top = -4 + "px";
+    personagem.spriteImgPs.style.left = 12 + "px";
+    //Enemy
+    inimigosAtivos = [];
+    timeCriacao = 1000;//Math.random()*10000;
     //para a segunda img do dg é 20px e para primeira eh 
-   //personagem.atualizarSprite();
-   setInterval(function(){personagem.atualizarSprite(personagem.spriteImgDg);}, 500);
-   setInterval(gameLoop, 25);
-
-
+    //personagem.atualizarSprite();
+    setInterval(function () { personagem.atualizarSprite(personagem.spriteImgDg); }, 500);
+    setInterval(gameLoop, 25);
+    setInterval(criarInimigo, timeCriacao);
+    setInterval(atualizaInimigo, 250);
 }
-function teclaDw(p){//telca pressionada!
+
+function teclaDw(p) {//telca pressionada!
     let tecla = event.keyCode;
     //console.log(p+" P");
-    if(tecla==37){//Esquerda
-        p.dx=-1;
+    if (tecla == 37) {//Esquerda
+        p.dx = -1;
         //console.log("Entrou");
-    }else if(tecla==39){//direita!
-       // dirx=1;
-       p.dx=1;
+    } else if (tecla == 39) {//direita!
+        // dirx=1;
+        p.dx = 1;
         //console.log(p.vel);
     }
     //console.log(tecla);
-    if(tecla==38){//cima
-        p.dy=-1;
-    }else if(tecla==40){//baixo
-        p.dy=1;
+    if (tecla == 38) {//cima
+        p.dy = -1;
+    } else if (tecla == 40) {//baixo
+        p.dy = 1;
     }
-    if(tecla==32){
-       // atira(posX+17,posY-17);
+    if (tecla == 32) {
+        if(p.atirando == true)
+            return;
+        p.atirando = true;
+        setTimeout(function () { console.log("0"); p.atirar(p.spriteImgPs); }, 50);
+        setTimeout(function () { console.log("1"); p.atirar(p.spriteImgPs); }, 200);
+        setTimeout(function () { console.log("2"); p.atirar(p.spriteImgPs); }, 350);
+        setTimeout(function () { console.log("3"); p.atirar(p.spriteImgPs); p.atirando = false;}, 500);
+        //setTimeout(function () { console.log("4"); p.atirar(p.spriteImgPs);  }, 400);
     }//barra espaco
 }
-function teclaUp(p){//solta tecla!
+function teclaUp(p) {//solta tecla!
     let tecla = event.keyCode;
-    if((tecla==38) || (tecla==40) ){//cima
-        p.dy=0;
-    }else  if((tecla==39) || (tecla==37) ){//cima
-        p.dx=0;
+    if ((tecla == 38) || (tecla == 40)) {//cima
+        p.dy = 0;
+    } else if ((tecla == 39) || (tecla == 37)) {//cima
+        p.dx = 0;
     }
 }
-function gameLoop(){
-    if(emJogo){
-       // console.log(personagem.posX+" X1");
-        personagem.mexer(tamTelaH,tamTelaW);
-        //console.log(personagem.posX+" X2");
-        //Funcoes de controle!
-        // controlaJogador();
+//Enemy
+function atualizaInimigo() {
+    var tam = inimigosAtivos.length;
+    for (var i = 0; i < tam; i++) {
+        if (inimigosAtivos[i]) {
+            var img = inimigosAtivos[i].spriteImgDg;
+            inimigosAtivos[i].atualizarSprite(img, 4, 1);
+        }
+    }
+}
+function criarInimigo() {
+    if (emJogo) {
+        if (inimigosAtivos.length >= 4)
+            return;
+        let y = Math.random() * tamTelaH;
+        if (y >= tamTelaH - 119) y = tamTelaH - 125;
+        let x = tamTelaW - 110;
+        //Div
+        let jogador = document.createElement("div");//
+        let att1 = document.createAttribute("class");
+        let att2 = document.createAttribute("style");
+        att1.value = "enemy";
+        att2.value = "top:" + y + "px;" + "    left:" + x + "px;";
+        //Img
+        var spriteImg = document.createElement("img");//
+        let att3 = document.createAttribute("class");
+        let att4 = document.createAttribute("src");
+        att3.value = "inimigo";
+        att4.value = "dg4.png"
+        //Atribuições a IMG
+        spriteImg.setAttributeNode(att3);
+        spriteImg.setAttributeNode(att4);
+        //Atribuições a div
+        jogador.setAttributeNode(att1);
+        jogador.setAttributeNode(att2);
+        jogador.appendChild(spriteImg);
+        //enemy
+        var enemy = new Inimigo();
+        enemy.jogador = jogador;
+        enemy.spriteImgDg = spriteImg;
+        inimigosAtivos.push(enemy);
+        document.body.appendChild(enemy.jogador);
+        enemy.atualizarSprite(enemy.spriteImgDg, 4, 1);
+        //enemy.atualizarSprite(enemy.spriteImgDg, 4,1);
+    }
+}
+function controlaInimigos() {
+    //enemy = document.getElementsByClassName("bomba");
+    var tam = inimigosAtivos.length;
+    for (var i = 0; i < tam; i++) {
+        if (inimigosAtivos[i]) {
+            var pi = inimigosAtivos[i].jogador.offsetLeft;
+            pi -= inimigosAtivos[i].vel;
+            inimigosAtivos[i].jogador.style.left = pi + "px";
+            if (pi <= 0) {
+                // vidaPlaneta-=10;
+                //criaExplosao(2, bombasTotal[i].offsetLeft,null);
+                inimigosAtivos[i].jogador.remove();
+                inimigosAtivos.splice(i, 1);//remove 1 item a partir da posição i 
+            }
+        }
+    }
+
+}
+//Player
+function controlaJogador() {
+    personagem.mexer(tamTelaH, tamTelaW);
+}
+//Loop
+function gameLoop() {
+    //console.log("T ");
+    if (emJogo) {
+        controlaJogador();
         // controleTiros();
-        // controlaBombas();
+        controlaInimigos();
     }
     //frame = requestAnimationFrame(gameLoop);
 }
 
-window.addEventListener("load",init);
-document.addEventListener("keydown",function(){teclaDw(personagem)});
-document.addEventListener("keyup",function(){teclaUp(personagem)});
+window.addEventListener("load", init);
+document.addEventListener("keydown", function () { teclaDw(personagem) });
+document.addEventListener("keyup", function () { teclaUp(personagem) });

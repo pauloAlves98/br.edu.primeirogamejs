@@ -15,6 +15,26 @@ body{
     /* background-size: 50px; */
     position: absolute; /*Para conseguir flutuar na tela!*/
 }
+.enemy{/* div Inimigo*/
+    width: 104px;
+    height: 120px;
+    overflow: hidden;
+    border-color: black;
+    border: 2px solid #000;
+    /* background-color: black; */
+    /* background-image: url("nave1.gif"); */
+    /* background-size: 50px; */
+    position: absolute; /*Para conseguir flutuar na tela!*/
+}
+.inimigo{/* Inimigo IMG*/
+    width: 470px;
+    height: 470px;
+    /* background-color: black; */
+    /* background-image: url("nave1.gif"); */
+    /* background-size: 50px; */
+    position: absolute; /*Para conseguir flutuar na tela!*/
+    left: -6px;
+}
 .jogador{/* Personagem*/
     width: 348px;
     height: 61px;
