@@ -56,7 +56,7 @@ function teclaDw(p) {//telca pressionada!
         setTimeout(function () { console.log("0"); p.atirar(p.spriteImgPs); }, 50);
         setTimeout(function () { console.log("1"); p.atirar(p.spriteImgPs); }, 200);
         setTimeout(function () { console.log("2"); p.atirar(p.spriteImgPs); }, 350);
-        setTimeout(function () { console.log("3"); p.atirar(p.spriteImgPs); p.atirando = false;}, 500);
+        setTimeout(function () { console.log("3"); p.atirar(p.spriteImgPs);p.dispararFlecha(document,p.posX+80,(p.posY+30));/*p.atirando = false;*/}, 500);
         //setTimeout(function () { console.log("4"); p.atirar(p.spriteImgPs);  }, 400);
     }//barra espaco
 }
@@ -133,15 +133,19 @@ function controlaInimigos() {
 
 }
 //Player
-function controlaJogador() {
+function controleJogador() {
     personagem.mexer(tamTelaH, tamTelaW);
+}
+//Disparos
+function controleDisparos(){
+    personagem.movimentoDisparo(document, tamTelaW,inimigosAtivos);
 }
 //Loop
 function gameLoop() {
     //console.log("T ");
     if (emJogo) {
-        controlaJogador();
-        // controleTiros();
+        controleJogador();
+        controleDisparos();
         controlaInimigos();
     }
     //frame = requestAnimationFrame(gameLoop);

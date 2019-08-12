@@ -43,6 +43,15 @@ body{
     /* background-size: 50px; */
     position: absolute; /*Para conseguir flutuar na tela!*/
 }
+.disparoJogador{/*tiro do jogador*/
+    width: 80px;
+    height: 40px;
+    /* background-color: black; */
+    background-repeat: no-repeat;
+    background-image: url("flecha.png");
+    background-size: 80px;
+    position: absolute; /*Para conseguir flutuar na tela!*/
+}
 .dragao{
     width: 204.2px;/*metade*/
     height: 75.6px;
