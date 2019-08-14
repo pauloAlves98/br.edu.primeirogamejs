@@ -1,21 +1,24 @@
 var personagem = new Personagem();
+var config;
 var emJogo = true;
-var tamTelaW;
-var tamTelaH;
+var tamTelaW = window.innerWidth;
+var tamTelaH = window.innerHeight;;
 var inimigosAtivos;
 var timeCriacao;
 function init() {
     //Tela
     tamTelaW = window.innerWidth;
     tamTelaH = window.innerHeight;
+    config = new configurarTela(tamTelaH, tamTelaW, document);
+    config.init();
     console.log(tamTelaH + " Monitor");
     //Jogador
     personagem.jogador = document.getElementById("jog");//Pega a div
     personagem.spriteImgPs = document.getElementById("jogador");//Pega a img
     personagem.spriteImgDg = document.getElementById("dragao");//Pega aimg
     //console.log(personagem.spriteImgDg.offsetWidth+" K");
-    personagem.posX = tamTelaW / 2;
-    personagem.posY = tamTelaH / 2;
+    personagem.posX = config.tamTelaWJogo / 2;
+    personagem.posY = config.tamTelaHJogo / 2;
     personagem.jogador.style.top = personagem.posY + "px";
     personagem.jogador.style.left = personagem.posX + "px";
     personagem.spriteImgDg.style.top = 45 + "px";
@@ -49,14 +52,15 @@ function teclaDw(p) {//telca pressionada!
     } else if (tecla == 40) {//baixo
         p.dy = 1;
     }
+    
     if (tecla == 32) {
-        if(p.atirando == true)
+        if (p.atirando == true)
             return;
         p.atirando = true;
         setTimeout(function () { console.log("0"); p.atirar(p.spriteImgPs); }, 50);
         setTimeout(function () { console.log("1"); p.atirar(p.spriteImgPs); }, 200);
         setTimeout(function () { console.log("2"); p.atirar(p.spriteImgPs); }, 350);
-        setTimeout(function () { console.log("3"); p.atirar(p.spriteImgPs);p.dispararFlecha(document,p.posX+80,(p.posY+30));/*p.atirando = false;*/}, 500);
+        setTimeout(function () { console.log("3"); p.atirar(p.spriteImgPs); p.dispararFlecha(document, p.posX + 80, (p.posY + 30));/*p.atirando = false;*/ }, 500);
         //setTimeout(function () { console.log("4"); p.atirar(p.spriteImgPs);  }, 400);
     }//barra espaco
 }
@@ -82,9 +86,9 @@ function criarInimigo() {
     if (emJogo) {
         if (inimigosAtivos.length >= 4)
             return;
-        let y = Math.random() * tamTelaH;
-        if (y >= tamTelaH - 119) y = tamTelaH - 125;
-        let x = tamTelaW - 110;
+        let y = Math.random() * (config.tamTelaHJogo)+config.cabecario;
+        if (y >= config.telaCompleta() - 119) y = config.tamTelaHJogo - 125;
+        let x = config.tamTelaWJogo - 110;
         //Div
         let jogador = document.createElement("div");//
         let att1 = document.createAttribute("class");
@@ -109,7 +113,7 @@ function criarInimigo() {
         enemy.jogador = jogador;
         enemy.spriteImgDg = spriteImg;
         inimigosAtivos.push(enemy);
-        document.body.appendChild(enemy.jogador);
+        document.getElementById("table").appendChild(enemy.jogador);
         enemy.atualizarSprite(enemy.spriteImgDg, 4, 1);
         //enemy.atualizarSprite(enemy.spriteImgDg, 4,1);
     }
@@ -134,11 +138,11 @@ function controlaInimigos() {
 }
 //Player
 function controleJogador() {
-    personagem.mexer(tamTelaH, tamTelaW);
+    personagem.mexer(config.telaCompleta(), config.tamTelaWJogo, config.cabecario+2);
 }
 //Disparos
-function controleDisparos(){
-    personagem.movimentoDisparo(document, tamTelaW,inimigosAtivos);
+function controleDisparos() {
+    personagem.movimentoDisparo(document, config.tamTelaWJogo, inimigosAtivos);
 }
 //Loop
 function gameLoop() {

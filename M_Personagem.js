@@ -12,9 +12,8 @@ function Personagem() {
     this.posSpritePs = 0;//voltar para 0
     this.atirando = false;
 
-    this.mexer = function (tamTelaH, tamTelaW) {
-
-        if (!(this.posY + this.dy * this.vel + this.jogador.offsetHeight >= tamTelaH) && !(this.posY + this.dy * this.vel <= 0))
+    this.mexer = function (tamTelaH, tamTelaW, cab) {//
+        if (!(this.posY + this.dy * this.vel + this.jogador.offsetHeight >= tamTelaH) && !(this.posY + this.dy * this.vel <= cab))
             this.posY += this.dy * this.vel;
         if (!(this.posX + this.dx * this.vel + this.jogador.offsetWidth >= tamTelaW) && !(this.posX + this.dx * this.vel <= 0))
             this.posX += this.dx * this.vel;
@@ -82,7 +81,7 @@ function Personagem() {
         att2.value = "top:" + y + "px;left:" + x + "px";
         flecha.setAttributeNode(att1);
         flecha.setAttributeNode(att2);
-        document.body.appendChild(flecha);
+        document.getElementById("table").appendChild(flecha);
     }
     this.movimentoDisparo = function (document, larguraT,inimigos) {
         var disparos = document.getElementsByClassName("disparoJogador");
@@ -96,7 +95,7 @@ function Personagem() {
                 this.colisaoFlechaComEnemy(inimigos,disparos[i]);
                 if (pt >= larguraT) {
                     //disparos[i].remove();
-                    document.body.removeChild(disparos[i]);
+                    document.getElementById("table").removeChild(disparos[i]);
                     this.atirando = false;
                 }
             }
