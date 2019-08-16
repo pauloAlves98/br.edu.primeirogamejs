@@ -8,32 +8,37 @@
     <link rel="stylesheet" href="V_Estilos.css" />
     <script type="text/javascript" src="M_Personagem.js"> </script>
     <script type="text/javascript" src="M_Inimigo.js"> </script>
-    <script type="text/javascript" src="C_Jogo.js"> </script>
+    <script type="text/javascript" src="M_Desafio.js"> </script>
     <script type="text/javascript" src="M_ConfigTela.js"> </script>
+    <script type="text/javascript" src="C_Jogo.js"> </script>
+    <script type="text/javascript" src="DAO_Imagens.js"> </script>
+    
     <!-- <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css"> -->
 </head>
+
     <body style="overflow-x: hidden;overflow-y: hidden;">
         <table>
             <tr>
                 <td id="cabecario">
                     <div>
-                        <div class="container">    
+                        <div class="containerLife">    
                             <div class="progress progress-striped">
                               <div class="progress-bar">
                                 <div class="progress-valor">100%</div>
                               </div>                       
                             </div> 
                         </div>
-                        <div class="divClip"><img class="arrowClip" src="arrowClip2.png"></div>
-                        <div class="containerDesafio"><img class="arrowClip" src="arrowClip2.png"></div>
+                        <div class="divClip"><img class="arrowClip" src="imgs/arrowClip2.png"></div>
+                        <div class="containerTraducao"><div id="traducao">Palavra<span id="palavra">????????????</span></div></div>
+                        <div class="containerDesafio"><img id = "ImgDesafio" class="ImgDesafio"></div>
                     </div>
                 </td>
             </tr>
             <tr>
                 <td id="table">
                     <div id="jog" class="jog">
-                        <img src="arrow2.png" id="jogador" class="jogador">
-                        <img src="dg5.png" id="dragao" class="dragao">
+                        <img src="imgs/arrow2.png" id="jogador" class="jogador">
+                        <img src="imgs/dg5.png" id="dragao" class="dragao">
                     </div>
                 </td>
             </tr>

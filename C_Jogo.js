@@ -1,5 +1,6 @@
 var personagem = new Personagem();
 var config;
+var daoDesafio;
 var emJogo = true;
 var tamTelaW = window.innerWidth;
 var tamTelaH = window.innerHeight;;
@@ -27,6 +28,10 @@ function init() {
     //Enemy
     inimigosAtivos = [];
     timeCriacao = 1000;//Math.random()*10000;
+    //Desafio
+    daoDesafio = new BaseImages();
+    console.log("P "+daoDesafio.imgs.att1.sourceImg);
+    document.getElementById("ImgDesafio").src=daoDesafio.imgs.att1.sourceImg;
     //para a segunda img do dg é 20px e para primeira eh 
     //personagem.atualizarSprite();
     setInterval(function () { personagem.atualizarSprite(personagem.spriteImgDg); }, 500);
@@ -100,7 +105,7 @@ function criarInimigo() {
         let att3 = document.createAttribute("class");
         let att4 = document.createAttribute("src");
         att3.value = "inimigo";
-        att4.value = "dg4.png"
+        att4.value = "imgs/dg4.png"
         //Atribuições a IMG
         spriteImg.setAttributeNode(att3);
         spriteImg.setAttributeNode(att4);
